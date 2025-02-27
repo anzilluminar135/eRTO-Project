@@ -8,7 +8,7 @@ from .forms import TransferOfOwnershipForm,LearnersLicenceForm,DrivingLicenceFor
 
 from .models import Vehicles,Payments,Transactions,RegistrationRenewal
 
-from .utility import get_vehicle,get_application_number,get_txn_id,get_registration_number,send_email
+from .utility import get_vehicle,get_application_number,get_txn_id,get_registration_number,send_email,get_learners_number
 
 from django.db import transaction
 
@@ -43,6 +43,8 @@ from django.conf import settings
 import threading
 
 from django.contrib.auth.decorators import login_required
+
+from datetime import datetime
 
 
 
@@ -701,9 +703,19 @@ class ApplicationDetailView(View):
 
                 obj.registration_number = registration_number
 
+        if service == 'Learners Licence':
+
+            if status=='Approved':
+                
+                learners_number = get_learners_number()
+
+                obj.learners_number = learners_number
+
         obj.application_status=status
 
         obj.remarks_if_rejected = remarks
+
+        obj.approved_or_rejected_at = datetime.now().date()
 
         obj.save()
 

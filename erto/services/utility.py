@@ -74,6 +74,19 @@ def get_registration_number():
              return registration_number  
         
 
+def get_learners_number():
+
+    while True: 
+
+        number = f"{random.randint(0, 999999999):09d}"
+
+        learners_number = f'LRN{number}'  
+
+        if not models.LearnersLicence.objects.filter(learners_number=learners_number).exists():
+
+             return learners_number  
+        
+
 def send_email(msg):
 
      msg.send()        

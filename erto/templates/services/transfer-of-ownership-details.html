@@ -182,6 +182,14 @@
                           <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.date_of_transfer| date:'d-m-Y'}}">
                         </div>   
                 </div>
+                <div class="row mt-lg-5">
+                  <div class="col-md-4">
+                      <label for="insurance_expiry_date" class="form-label">Approved or Rejected At</label> 
+                      {%if service_obj.approved_or_rejected_at%}
+                      <input type="text" class="form-control" id="exampleInput" value="{{service_obj.approved_or_rejected_at | date:'d-m-Y'}}" disabled>
+                      {%endif%}
+                  </div>  
+              </div>
               </div>
             </div>
         </div>

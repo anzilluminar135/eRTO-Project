@@ -88,7 +88,7 @@ class Vehicles(BaseClass):
 
     remarks_if_rejected = models.TextField(null=True,blank=True)
 
-    date_of_registration = models.DateTimeField(null=True,blank=True)
+    approved_or_rejected_at = models.DateField(null=True,blank=True)
 
     rto = models.CharField(max_length=50)
 
@@ -168,6 +168,8 @@ class RegistrationRenewal(BaseClass):
     # Registration Information
     application_status = models.CharField(max_length=10,choices=RegistrationStatusChoices.choices,default=RegistrationStatusChoices.PENDING)
 
+    approved_or_rejected_at = models.DateField(null=True,blank=True)
+
     remarks_if_rejected = models.TextField(null=True,blank=True)
 
     renewal_expiry_date = models.DateField(null=True,blank=True)
@@ -235,7 +237,7 @@ class TransferOfOwnership(BaseClass):
 
     remarks_if_rejected = models.TextField(null=True,blank=True)
 
-    ownership_changed_at = models.DateField(null=True,blank=True)
+    approved_or_rejected_at = models.DateField(null=True,blank=True)
 
 
 
@@ -308,7 +310,9 @@ class LearnersLicence(BaseClass):
 
     remarks_if_rejected = models.TextField(null=True,blank=True)
 
-    learners_approved_at = models.DateField(null=True,blank=True)
+    learners_number = models.CharField(max_length=12,null=True,blank=True)
+
+    approved_or_rejected_at = models.DateField(null=True,blank=True)
 
     def __str__(self):
 
@@ -362,7 +366,7 @@ class DrivingLicence(BaseClass):
 
     remarks_if_rejected = models.TextField(null=True,blank=True)
 
-    driving_licence_approved_at = models.DateField(null=True,blank=True)
+    approved_or_rejected_at = models.DateField(null=True,blank=True)
 
     def __str__(self):
 
@@ -409,7 +413,7 @@ class NationalPermit(BaseClass):
 
     remarks_if_rejected = models.TextField(null=True,blank=True)
 
-    permit_approved_at = models.DateField(null=True,blank=True)
+    approved_or_rejected_at = models.DateField(null=True,blank=True)
 
     def __str__(self):
 

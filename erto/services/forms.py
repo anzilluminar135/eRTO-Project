@@ -444,7 +444,7 @@ class LearnersLicenceForm(forms.ModelForm):
 
         model=  LearnersLicence
 
-        exclude = ['uuid','active_status','application_status','application_number'] 
+        exclude = ['uuid','active_status','application_status','application_number','learners_number'] 
 
         widgets ={
                     'full_name':forms.TextInput(attrs={
