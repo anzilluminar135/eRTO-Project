@@ -1,0 +1,170 @@
+{%extends 'base.html'%}
+{%block main%}
+
+<main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+ 
+      <img src="/static/assets/img/hero-bg-abstract.jpg" alt="" data-aos="fade-in" class="">
+ 
+      <div class="container">
+        <div class="row d-flex justify-content-center align-items-center" data-aos="zoom-out">
+            <div class="col-12">
+            <div class="service-item item-cyan position-relative card p-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="my-3">Registration Renewal</h4>
+                  <p class="fs-6 my-3">Status : <span class="{%if service_obj.application_status == 'Approved' %}
+                    bg-success
+                    {%elif service_obj.application_status == 'Rejected' %}
+                    bg-danger
+                    {%else %}
+                    bg-warning
+                    {%endif%}
+                    rounded p-1 text-white">{{service_obj.application_status}}</span></p>
+                </div>
+              </div>
+              <form action="" method="post">
+                {%csrf_token%}
+              <div class="row mt-3 mb-3">
+                <div class="col-md-3">
+                    <label for="application_number" class="form-label">Application Number</label> 
+                    <input type="text" class="form-control" disabled value="{{service_obj.application_number}}">
+                </div>
+                {%check_user_authenticated request as user%}
+                {%if user%}
+                <div class="col-md-3">
+                    <label for="action" class="form-label">Action</label> 
+                    <select class="form-control" id="statusFilter" name="status">
+                        <option value="Approved">Approve</option>
+                        <option value="Rejected">Reject</option>  
+                      </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="address" class="form-label">Remarks if any</label> 
+                    <textarea  cols="70" rows="4" class="form-control" name="remarks">{{service_obj.remarks_if_rejected}}</textarea> 
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+                {%endif%}
+            </div>
+              </form>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Chasis Number</label>
+                      <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.chasis_number}}">
+                    </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Engine Number</label>
+                      <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.engine_number}}">
+                       
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Registration Number</label>
+                      <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.registration_number}}">
+                       
+                      </div> 
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Manufacturer</label>  
+                      <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.manufacturer}}">
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Model</label>  
+                      <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.model}}">
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Variant</label>  
+                      <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.variant}}">
+                      </div> 
+                </div>
+                <div class="row my-3">
+                  <div class="col-md-4">
+                    <label for="exampleInput" class="form-label">Year of Manufacture</label>  
+                    <input type="year" class="form-control" id="exampleInput" disabled value="{{service_obj.year_of_manufacture}}">
+                    </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Vehicle Class</label>  
+                      <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.vehicle_class}}">
+                      </div> 
+                </div>
+                <div class="row mt-lg-5">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Owner Name</label>  
+                      <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.owner_name}}">
+                      </div> 
+                      <div class="col-md-7">
+                        <label for="exampleInput" class="form-label">Address</label>  
+                        <textarea  cols="70" rows="4" class="form-control" disabled>{{service_obj.address}}</textarea>
+                        </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Contact Number</label>  
+                        <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.contact_number}}">
+                      </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Email</label>  
+                          <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.email}}">
+                        </div>  
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Aadhar Number</label>  
+                          <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.aadhar_number}}">
+                        </div>  
+                </div>
+                <div class="row mt-lg-5">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Date of Registration</label>  
+                        <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.date_of_registration| date:'d-m-Y'}}">
+                      </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">RTO</label>  
+                          <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.rto}}">
+                        </div>  
+                </div>
+                <div class="row mt-lg-5">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Insurance Policy Number </label>  
+                        <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.insurance_policy_number}}">
+                      </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Policy Provider</label>  
+                          <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.policy_provider}}">
+                        </div>  
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Expiry Date</label>  
+                          <input type="text" class="form-control" id="exampleInput" disabled value="{{service_obj.insurance_expiry_date| date:'d-m-Y'}}">
+                        </div>  
+                </div>
+                <div class="row mt-lg-5">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Proof of Address</label>
+                      {%if service_obj.proof_of_address%}  
+                      <p class="fs-6"><a href="{{service_obj.proof_of_address.url}}" download>download</a></p>
+                      {%endif%}  
+                    </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Any Other Document</label>
+                        {%if service_obj.document%}
+                        <p class="fs-6"><a href="{{service_obj.document.url}}" download>download</a></p>
+                        {%endif%}
+                        </div>  
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Pollution Certificate</label>  
+                        {%if service_obj.pollution_certificate%}
+                        <p class="fs-6"><a href="{{service_obj.pollution_certificate.url}}" download>download</a></p>
+                        {%endif%}
+                        </div>  
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Hero Section -->
+</main>
+{%endblock%}
+

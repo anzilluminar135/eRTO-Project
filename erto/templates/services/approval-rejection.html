@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+ <style>
+    @media screen and (max-width: 480px){
+        .card{
+            max-width: 400px;
+            
+        }
+    }
+ </style>   
+</head>
+<body>
+    <div style="background-size:cover; height: 500px;">
+        <h2 style="color: rgb(5, 8, 11); text-align: center;font-family: 'Caveat', cursive;font-size: 40px;">eRTO Kerala</h2>
+            <div class="card" style="width: 600px; margin: 0px auto; padding: 20px; background-color: white; border: 1px solid #e7e9eb; border-radius: 2%;">
+                <h4>Hi eRTO Kerala User,</h4>
+                <p>Your Application {{obj.application_number}} for {{service}}  has been {{obj.application_status}}</p>
+
+                <h6>Kindly request you to visit our website to know more</h6>
+                <a class="text-decoration-none" href="http://127.0.0.1:8000/">eRTO Kerala</a>
+              </div>
+       
+    </div>   
+</body>
+</html>

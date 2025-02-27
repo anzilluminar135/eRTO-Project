@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<main class="main">
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+        <img src="/static/assets/img/hero-bg-abstract.jpg" alt="Hero Background" data-aos="fade-in" class="">
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center" data-aos="zoom-out">
+                <div class="col-8">
+                    <div class="service-item item-cyan position-relative card p-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                {%if service == 'vehicle-registration-renewal'%}
+                                <h4 class="my-3">Registration Renewal</h4>
+                                {%endif%}
+                                {%if service == 'new-vehicle-registration'%}
+                                <h4 class="my-3">New Registration</h4>
+                                {%endif%}
+                                {%if service == 'transfer-of-ownership'%}
+                                <h4 class="my-3">Transfer of Ownership</h4>
+                                {%endif%}
+                                {%if service == 'learners-licence'%}
+                                <h4 class="my-3">Learner's Licence</h4>
+                                {%endif%}
+                                {%if service == 'driving-licence'%}
+                                <h4 class="my-3">Driving Licence</h4>
+                                {%endif%}
+                                {%if service == 'national-permit'%}
+                                <h4 class="my-3">National Permit</h4>
+                                {%endif%}
+                                <h5 class="my-3">Order Details</h5>
+                                <p><strong>Application Number:</strong> {{ payment.service.application_number }}</p>
+                                <p><strong>Transaction Number:</strong> {{ payment.txn_id }}</p>
+                                <p><strong>Payment Fee:<i class=" px-1 bi-currency-rupee"></i></strong> {{ payment.fee }}</p>
+
+                                  <!-- Pay Now Button -->
+                                <div class="my-5">
+                                    <form method="post" action="{%url 'payment'%}">
+                                     {% csrf_token %}
+                                    <input type="hidden" name="payment_uuid" value="{{payment.uuid}}">
+                                    <input type="hidden" name="fee" value="{{ payment.fee }}">
+                                    <button type="submit" class="btn btn-primary">Pay With Razorpay</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /Hero Section -->
+</main>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{%extends 'base.html'%}
+{%block main%}
+
+<main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+ 
+      <img src="/static/assets/img/hero-bg-abstract.jpg" alt="" data-aos="fade-in" class="">
+ 
+      <div class="container">
+        <div class="row d-flex justify-content-center align-items-center" data-aos="zoom-out">
+            <div class="col-12">
+            <div class="service-item item-cyan position-relative card p-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <h4 class="my-3">National Permit</h4>
+                </div>
+              </div>
+              <form action="" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Chasis Number</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{vehicle.chasis_number}}" disabled>
+                    </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Engine Number</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{vehicle.engine_number}}" disabled>
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Registration Number</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{vehicle.registration_number}}" disabled> 
+                      </div> 
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Manufacturer</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{vehicle.manufacturer}}" disabled>
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Model</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{vehicle.model}}" disabled>
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Variant</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{vehicle.variant}}" disabled>
+                       
+                      </div> 
+                </div>
+                <div class="row my-3">
+                  <div class="col-md-4">
+                    <label for="exampleInput" class="form-label">Year of Manufacture</label>
+                    <input type="year" class="form-control" id="exampleInput" value="{{vehicle.year_of_manufacture}}" disabled>
+                    </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Vehicle Class</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{vehicle.vehicle_class}}" disabled>
+                      </div> 
+
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Vehicle Type</label><span class="text-danger">*</span>
+                      {{form.vehicle_type}}
+                      </div> 
+                </div>
+                <div class="row mt-lg-5">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Applicant's Name</label><span class="text-danger">*</span>
+                      {{form.full_name}}
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                      </div> 
+                      <div class="col-md-7">
+                        <label for="exampleInput" class="form-label">Applicant's Address</label><span class="text-danger">*</span>
+                        <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                         {{form.address}}
+                        </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Applicant's Contact Number</label><span class="text-danger">*</span>
+                        <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                         {{form.contact_number}}
+                      </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Applicant's Email</label><span class="text-danger">*</span>
+                          <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                           {{form.email}}
+                        </div> 
+                </div>
+                <div class="row mt-lg-5">
+                  <div class="col-md-7">
+                    <label for="exampleInput" class="form-label">Routes</label><span class="text-danger">*</span>
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                       {{form.routes}}
+                    </div>  
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">RC Book</label><span class="text-danger">*</span>
+                        <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                         {{form.rc_book_doc}}
+                      </div> 
+                       
+                </div>
+                <div class="row mt-lg-5">
+                  <div class="col-md-4">
+                    <label for="exampleInput" class="form-label">Insurance Certificate</label><span class="text-danger">*</span>
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                       {{form.insurance_certificate}}
+                    </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Pollution Control Certificate </label><span class="text-danger">*</span>
+                        <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                         {{form.pollution_certificate}}
+                      </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Fitness Certificate</label><span class="text-danger">*</span>
+                          <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                           {{form.physical_fitness}}
+                        </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-md-12 text-center">
+                      <button type="submit" class="btn btn-primary">Apply</button>
+                  </div>
+              </div>
+              </form>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Hero Section -->
+</main>
+{%endblock%}
+

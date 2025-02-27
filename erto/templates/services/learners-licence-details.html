@@ -1,0 +1,143 @@
+{%extends 'base.html'%}
+{%block main%}
+
+<main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+ 
+      <img src="/static/assets/img/hero-bg-abstract.jpg" alt="" data-aos="fade-in" class="">
+ 
+      <div class="container">
+        <div class="row d-flex justify-content-center align-items-center" data-aos="zoom-out">
+            <div class="col-12">
+            <div class="service-item item-cyan position-relative card p-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <h4 class="my-3">Learning Licence</h4>
+                  <p class="fs-6 my-3">Status : <span class="{%if service_obj.application_status == 'Approved' %}
+                    bg-success
+                    {%elif service_obj.application_status == 'Rejected' %}
+                    bg-danger
+                    {%else %}
+                    bg-warning
+                    {%endif%}
+                    rounded p-1 text-white">{{service_obj.application_status}}</span></p>
+                </div>
+              </div>
+              <form action="" method="post">
+                {%csrf_token%}
+              <div class="row mt-3 mb-3">
+                <div class="col-md-3">
+                    <label for="application_number" class="form-label">Application Number</label> 
+                    <input type="text" class="form-control" disabled value="{{service_obj.application_number}}">
+                </div>
+                {%check_user_authenticated request as user%}
+                {%if user%}
+                <div class="col-md-3">
+                    <label for="action" class="form-label">Action</label> 
+                    <select class="form-control" id="statusFilter" name="status">
+                        <option value="Approved">Approve</option>
+                        <option value="Rejected">Reject</option>  
+                      </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="address" class="form-label">Remarks if any</label> 
+                    <textarea  cols="70" rows="4" class="form-control" name="remarks">{{service_obj.remarks_if_rejected}}</textarea> 
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+                {%endif%}
+            </div>
+              </form>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Applicant's Full Name</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{service_obj.full_name}}" disabled>
+                    </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Father's Name</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{service_obj.father_name}}" disabled>
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Date of Birth</label>
+                      <input type="text" class="form-control" id="exampleInput" value="{{service_obj.date_of_bith| date:'d-m-Y'}}" disabled>
+                      </div> 
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Gender</label>  
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                      <input type="text" class="form-control" id="exampleInput" value="{{service_obj.gender}}" disabled>
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Age</label>  
+                      <input type="text" class="form-control" id="exampleInput" value="{{service_obj.age}}" disabled>
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Occupation</label>  
+                      <input type="text" class="form-control" id="exampleInput" value="{{service_obj.occupation}}" disabled>
+                      </div> 
+                </div>
+                <div class="row my-3">
+                  <div class="col-md-5">
+                    <label for="exampleInput" class="form-label">Address</label>  
+                    <textarea  cols="70" rows="4" class="form-control" disabled>{{service_obj.address}}</textarea>
+                    </div> 
+                    <div class="col-md-7">
+                      <label for="exampleInput" class="form-label">Type of Vehicle</label>  
+                      <div class="form-check">
+                        <input type="text" class="form-control" id="exampleInput" value="{{service_obj.type_of_vehicle}}" disabled>
+                       </div> 
+                      </div> 
+                </div>
+                <div class="row mt-lg-5">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Physical Fitness</label>  
+                      {%if service_obj.physical_fitness%}
+                      <p class="fs-6"><a href="{{service_obj.physical_fitness.url}}" download>download</a></p>
+                      {%endif%}
+                      </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Signature</label>  
+                        {%if service_obj.signature%}
+                      <p class="fs-6"><a href="{{service_obj.signature.url}}" download>download</a></p>
+                      {%endif%}
+                        </div>
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Photo</label>  
+                        {%if service_obj.photo%}
+                      <p class="fs-6"><a href="{{service_obj.photo.url}}" download>download</a></p>
+                      {%endif%}
+                        </div>
+                </div>
+
+                <div class="row mt-lg-5">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Proof of Address</label>  
+                      {%if service_obj.proof_of_address%}
+                      <p class="fs-6"><a href="{{service_obj.proof_of_address.url}}" download>download</a></p>
+                      {%endif%}
+                      </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Proof of ID</label>  
+                        {%if service_obj.proof_of_id%}
+                      <p class="fs-6"><a href="{{service_obj.proof_of_id.url}}" download>download</a></p>
+                      {%endif%}
+                        </div>
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Email</label>  
+                        <input type="text" class="form-control" id="exampleInput" value="{{service_obj.email}}" disabled>
+                        </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Hero Section -->
+</main>
+
+{%endblock%}
+

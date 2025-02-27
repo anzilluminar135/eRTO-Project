@@ -1,0 +1,156 @@
+{%extends 'base.html'%}
+{%block main%}
+
+<main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+ 
+      <img src="/static/assets/img/hero-bg-abstract.jpg" alt="" data-aos="fade-in" class="">
+ 
+      <div class="container">
+        <div class="row d-flex justify-content-center align-items-center" data-aos="zoom-out">
+            <div class="col-12">
+            <div class="service-item item-cyan position-relative card p-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <h4 class="my-3">Learning Licence</h4>
+                </div>
+              </div>
+              <form action="" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Applicant's Full Name</label><span class="text-danger">*</span>
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                    {{form.full_name}}  
+                    </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Father's Name</label><span class="text-danger">*</span>
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                       {{form.father_name}}
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Date of Birth</label><span class="text-danger">*</span>
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                       {{form.date_of_bith}}
+                      </div> 
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Gender</label><span class="text-danger">*</span>
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                      <div class="form-check">
+                        {% for radio in form.gender %}
+                            <div class="form-check form-check-inline">
+                                {{ radio.tag }} {{ radio.choice_label }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Age</label><span class="text-danger">*</span>
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                       {{form.age}}
+                      </div> 
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Occupation</label><span class="text-danger">*</span>
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                       {{form.occupation}}
+                      </div> 
+                </div>
+                <div class="row my-3">
+                  <div class="col-md-5">
+                    <label for="exampleInput" class="form-label">Address</label><span class="text-danger">*</span>
+                    <!-- <input type="year" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                     {{form.address}}
+                    </div> 
+                    <div class="col-md-7">
+                      <label for="exampleInput" class="form-label">Type of Vehicle</label><span class="text-danger">*</span>
+                      <div class="form-check">
+                        {% for checkbox in form.type_of_vehicle %}
+                            <div class="form-check form-check-inline">
+                                {{ checkbox.tag }} {{ checkbox.choice_label }}
+                            </div>
+                        {% endfor %}
+                       </div> 
+                       {%if form.type_of_vehicle.errors%}
+                        <span class="text-sm-start text-danger">
+                        {{form.type_of_vehicle.errors|join:" "}}
+                        </span>
+                        {%endif%}
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                      </div> 
+                </div>
+                <div class="row mt-lg-5">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Physical Fitness</label><span class="text-danger">*</span>
+                      {{form.physical_fitness}}
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                      </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Signature</label><span class="text-danger">*</span>
+                        <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                         {{form.signature}}
+                        </div>
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Photo</label><span class="text-danger">*</span>
+                        <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                         {{form.photo}}
+                        </div>
+                </div>
+
+                <div class="row mt-lg-5">
+                    <div class="col-md-4">
+                      <label for="exampleInput" class="form-label">Proof of Address</label><span class="text-danger">*</span>
+                      {{form.proof_of_address}}
+                      <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                      </div> 
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Proof of ID</label><span class="text-danger">*</span>
+                        <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                         {{form.proof_of_id}}
+                        </div>
+                      <div class="col-md-4">
+                        <label for="exampleInput" class="form-label">Email</label><span class="text-danger">*</span>
+                        <!-- <input type="text" class="form-control" id="exampleInput" placeholder="Enter your name"> -->
+                         {{form.email}}
+                        </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-md-12 text-center">
+                      <button type="submit" class="btn btn-primary">Apply</button>
+                  </div>
+              </div>
+              </form>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Hero Section -->
+</main>
+
+<script>
+    // Calculate age in years and months
+    document.getElementById('id_date_of_birth').addEventListener('input', function() {
+        var dob = new Date(this.value); // Get the date of birth
+        var today = new Date(); // Get the current date
+        
+        // Calculate the difference in years
+        var years = today.getFullYear() - dob.getFullYear();
+        var months = today.getMonth() - dob.getMonth();
+        
+        // Adjust if the current month and day have not yet reached the birthday in this year
+        if (months < 0 || (months === 0 && today.getDate() < dob.getDate())) {
+            years--;
+            months += 12;
+        }
+
+        // Set the calculated age (Years and Months) into the age field
+        document.getElementById('id_age').value = years + " years " + months + " months";
+    });
+</script>
+
+{%endblock%}
+

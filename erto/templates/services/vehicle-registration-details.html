@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% block main %}
+
+<main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+        <img src="/static/assets/img/hero-bg-abstract.jpg" alt="Hero Background" data-aos="fade-in" class="">
+        
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center" data-aos="zoom-out">
+                <div class="col-12">
+                    <div class="service-item item-cyan position-relative card p-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="my-3">Vehicle Registration</h4>
+                                <p class="fs-6 my-3">Status : <span class="{%if service_obj.application_status == 'Approved' %}
+                                                                            bg-success
+                                                                            {%elif service_obj.application_status == 'Rejected' %}
+                                                                            bg-danger
+                                                                            {%else %}
+                                                                            bg-warning
+                                                                            {%endif%}
+                                                                            rounded p-1 text-white">{{service_obj.application_status}}</span></p>
+                             </div>   
+                        </div>
+                        <form action="" method="post">
+                            {%csrf_token%}
+                        <div class="row mt-3 mb-3">
+                            <div class="col-md-3">
+                                <label for="application_number" class="form-label">Application Number</label> 
+                                <input type="text" class="form-control" disabled value="{{service_obj.application_number}}">
+                            </div>
+                            {%check_user_authenticated request as user%}
+                            {%if user%}
+                            <div class="col-md-3">
+                                
+                                <label for="action" class="form-label">Action</label> 
+                                <select class="form-control" id="statusFilter" name="status">
+                                    <option value="Approved">Approve</option>
+                                    <option value="Rejected">Reject</option>  
+                                  </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="address" class="form-label">Remarks if any</label> 
+                                <textarea  cols="70" rows="4" class="form-control" name="remarks">{{service_obj.remarks_if_rejected}}</textarea> 
+                            </div>
+
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            {%endif%}
+                        </div>
+                    </form>
+                            
+                            <!-- Vehicle Details -->
+                            <div class="row mt-5">
+                                <div class="col-md-4">
+                                    <label for="chasis_number" class="form-label">Chassis Number</label> 
+                                    <input type="text" class="form-control" value="{{service_obj.chasis_number}}"  disabled> 
+                                </div> 
+                                <div class="col-md-4">
+                                    <label for="engine_number" class="form-label">Engine Number</label> 
+                                    <input type="text" class="form-control" value="{{service_obj.engine_number}}" disabled> 
+                                </div> 
+                                <div class="col-md-4">
+                                    <label for="registration_number" class="form-label">Temporary Registration Number</label> 
+                                    <input type="text" class="form-control" value="{{service_obj.temp_registration_number}}" disabled> 
+                                </div> 
+                            </div>
+
+                            <!-- Manufacturer, Model, and Variant -->
+                            <div class="row my-3">
+                                <div class="col-md-4">
+                                    <label for="manufacturer" class="form-label">Manufacturer</label> 
+                                    <input type="text" class="form-control" value="{{service_obj.manufacturer}}" disabled> 
+                                </div> 
+                                <div class="col-md-4">
+                                    <label for="model" class="form-label">Model</label> 
+                                    <input type="text" class="form-control"  value="{{service_obj.model}}"  disabled> 
+                                </div> 
+                                <div class="col-md-4">
+                                    <label for="variant" class="form-label">Variant</label> 
+                                    <input type="text" class="form-control"  value="{{service_obj.variant}}"  disabled> 
+                                </div> 
+                            </div>
+
+                            <!-- Year of Manufacture and Vehicle Class -->
+                            <div class="row my-3">
+                                <div class="col-md-4">
+                                    <label for="year_of_manufacture" class="form-label">Year of Manufacture</label> 
+                                    <input type="text" class="form-control"  value="{{service_obj.year_of_manufacture}}"  disabled> 
+                                </div> 
+                                <div class="col-md-4">
+                                    <label for="vehicle_class" class="form-label">Vehicle Class</label> 
+                                    <input type="text" class="form-control"  value="{{service_obj.vehicle_class}}"  disabled> 
+                                </div> 
+                            </div>
+
+                            <!-- Owner Information -->
+                            <div class="row mt-lg-5">
+                                <div class="col-md-4">
+                                    <label for="owner_name" class="form-label">Owner Name</label> 
+                                    <input type="text" class="form-control"  value="{{service_obj.owner_name}}"  disabled> 
+                                </div> 
+                                <div class="col-md-7">
+                                    <label for="address" class="form-label">Address</label> 
+                                    <textarea  cols="70" rows="4" class="form-control" disabled>{{service_obj.address}}</textarea> 
+                                </div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="row my-3">
+                                <div class="col-md-4">
+                                    <label for="contact_number" class="form-label">Contact Number</label> 
+                                    <!-- <input type="tel" class="form-control" id="contact_number" name="contact_number" placeholder="Enter Contact Number" required> -->
+                                    <input type="text" class="form-control"  value="{{service_obj.contact_number}}"  disabled> 
+                                </div> 
+                                <div class="col-md-4">
+                                    <label for="email" class="form-label">Email</label> 
+                                    <input type="text" class="form-control"  value="{{service_obj.email}}"  disabled> 
+                                    <!-- <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required> -->
+                                </div>  
+                                <div class="col-md-4">
+                                    <label for="aadhar_number" class="form-label">Aadhar Number</label> 
+                                    <input type="text" class="form-control"  value="{{service_obj.aadhar_number}}"  disabled> 
+                                    <!-- <input type="text" class="form-control" id="aadhar_number" name="aadhar_number" placeholder="Enter Aadhar Number" required> -->
+                                </div>  
+                            </div>
+
+                            <!-- Registration Information -->
+                            <div class="row mt-lg-5">
+                                <div class="col-md-4">
+                                    <label for="rto" class="form-label">RTO</label> 
+                                    <input type="text" class="form-control"  value="{{service_obj.rto}}"  disabled> 
+                                    <!-- <input type="text" class="form-control" id="rto" name="rto" placeholder="Enter RTO" required> -->
+                                </div>  
+                            </div>
+
+                            <!-- Insurance Details -->
+                            <div class="row mt-lg-5">
+                                <div class="col-md-4">
+                                    <label for="insurance_policy_number" class="form-label">Insurance Policy Number</label> 
+                                    
+                                    <input type="text" class="form-control" value="{{service_obj.insurance_policy_number}}" disabled>
+                                </div> 
+                                <div class="col-md-4">
+                                    <label for="policy_provider" class="form-label">Policy Provider</label> 
+                                    <input type="text" class="form-control" value="{{service_obj.policy_provider}}" disabled>
+                                </div>  
+                                <div class="col-md-4">
+                                    <label for="insurance_expiry_date" class="form-label">Expiry Date</label> 
+
+                                    <input type="text" class="form-control" value="{{service_obj.insurance_expiry_date| date:'d-m-Y' }}" disabled>
+                                </div>  
+                            </div>
+
+                            <!-- Additional Documents -->
+                            <div class="row mt-lg-5">
+                                <div class="col-md-4">
+                                    <label for="proof_of_address" class="form-label">Proof of Address</label> 
+                                    {%if service_obj.proof_of_address%} 
+                                    <p class="fs-6"><a href="{{service_obj.proof_of_address.url}}" download>download</a></p>
+                                    {%endif%}
+                                </div> 
+                                <div class="col-md-4">
+                                    <label for="document" class="form-label">Any Additional Document</label>
+                                    {%if service_obj.document%} 
+                                    <p class="fs-6"><a href="{{service_obj.document.url}}" download>download</a></p>
+                                    {%endif%}
+                                </div>  
+                                <div class="col-md-4">
+                                    <label for="pollution_certificate" class="form-label">Pollution Certificate</label> 
+                                    {%if service_obj.pollution_certificate%} 
+                                    <p class="fs-6"><a href="{{service_obj.pollution_certificate.url}}" download>download</a></p>
+                                    {%endif%}
+                                </div>  
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /Hero Section -->
+
+</main>
+
+{% endblock %}

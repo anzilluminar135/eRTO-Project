@@ -1,0 +1,47 @@
+{%extends 'base.html'%}
+{%block main%}
+
+<main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+ 
+      <img src="/static/assets/img/hero-bg-abstract.jpg" alt="" data-aos="fade-in" class="">
+ 
+      <div class="container">
+        <div class="row d-flex justify-content-center align-items-center" data-aos="zoom-out">
+            <div class="col-9">
+            <div class="service-item item-cyan position-relative card p-4">
+              <form action="" method="post">
+                {%csrf_token%}
+                <div class="row">
+                    <div class="col-md-5">
+                        {{form.application_number}}
+                          <!-- <input type="text" name="name" class="form-control" placeholder="" required=""> -->
+                        </div>
+                    <div class="col-md-5">
+                      {{form.mobile_number}}
+                      </div>  
+                    <div class="col-md-2 d-flex justify-content-end">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>  
+                </div>
+              </form>
+              {%if form.chasis_number.errors%}
+              <span class="text-sm-start text-danger">
+                {{form.chasis_number.errors|join:" "}}
+              </span>
+              {%endif%}
+              {%if error%}
+              <span class="text-sm-start text-danger">
+                {{error}}
+              </span>
+              {%endif%}
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Hero Section -->
+</main>
+{%endblock%}
