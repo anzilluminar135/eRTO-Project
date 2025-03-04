@@ -6,7 +6,7 @@ from .forms import RegistrationNumberForm,RegistrationWithChasisForm,VehicleRegi
 
 from .forms import TransferOfOwnershipForm,LearnersLicenceForm,DrivingLicenceForm,NationalPermitForm,LoginForm,ChasisWithMobForm
 
-from .models import Vehicles,Payments,Transactions,RegistrationRenewal
+from .models import Vehicles,Payments,Transactions,RegistrationRenewal,TransferOfOwnership,NationalPermit,DrivingLicence,LearnersLicence
 
 from .utility import get_vehicle,get_application_number,get_txn_id,get_registration_number,send_email,get_learners_number
 
@@ -46,7 +46,10 @@ from django.contrib.auth.decorators import login_required
 
 from datetime import datetime
 
+from django.contrib.staticfiles.storage import staticfiles_storage
 
+
+import os
 
 
 # Create your views here.
@@ -458,6 +461,19 @@ class PaymentVerificationView(View):
 
         transaction_obj.rzp_signature = rzp_signature
 
+        
+        client.utility.verify_payment_signature(request.POST)
+
+        transaction_obj.txn_status = 'Success'
+
+        transaction_obj.payment.payment_status = 'Success'
+
+        transaction_obj.payment.save()
+
+        transaction_obj.save()
+
+            
+
         try:
 
             client.utility.verify_payment_signature(request.POST)
@@ -470,9 +486,64 @@ class PaymentVerificationView(View):
 
             transaction_obj.save()
 
-            return render(request,'services/home.html')
+            
 
-        except:
+            email =transaction_obj.payment.service.email
+
+
+            msg=EmailMultiAlternatives('Application Submission',from_email=settings.EMAIL_HOST_USER,to=[email])
+
+            if isinstance(transaction_obj.payment.service,Vehicles):
+
+                service = 'New Vehicle Registration'
+
+            elif isinstance(transaction_obj.payment.service,RegistrationRenewal):
+
+                service = 'Registration Renewal'
+
+            elif isinstance(transaction_obj.payment.service,TransferOfOwnership):
+
+                service = 'Transfer of Ownership'
+
+                email_1 = transaction_obj.payment.service.seller_email
+
+                email_2 = transaction_obj.payment.service.buyer_email
+
+                msg=EmailMultiAlternatives('Application Submission',from_email=settings.EMAIL_HOST_USER,to=[email_1,email_2])
+
+            elif isinstance(transaction_obj.payment.service,NationalPermit):
+
+                service = 'National Permit'
+
+            elif isinstance(transaction_obj.payment.service,DrivingLicence):
+
+                service = 'Driving Licence'
+
+            elif isinstance(transaction_obj.payment.service,LearnersLicence):
+
+                service = 'Learners Licence'
+ 
+
+            html_message=render_to_string('services/submission-email.html',{'obj':transaction_obj.payment.service,'service':service})
+
+            msg.attach_alternative(html_message,'text/html')
+
+            
+            # QR_PATH = os.path.join(settings.BASE_DIR, 'static/assets/img/qrcode.png')
+
+            # with open(QR_PATH, 'rb') as qr_file:
+                    
+            #         msg.attach('qrcode.png', qr_file.read(), 'image/png')
+
+            thread = threading.Thread(target=send_email,args=(msg,))
+
+            thread.start()
+
+            return render(request,'services/home.html',{'message':f'Application for {service} Submitted Successfully !'})
+
+        except Exception as e:
+
+            print(e)
 
             transaction_obj.txn_status = 'Failed'
 
